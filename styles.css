@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    /* Removed overflow: hidden from body to allow scrolling if content is long */
+    background-color: #1a1a2e; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+}
+
+/* Preloader Styles */
+.preloader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a2e; /* Dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.preloader-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Disable interactions when hidden */
+}
+
+.preloader-content {
+    text-align: center;
+    display: flex; /* Use flexbox for content alignment */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+}
+
+.preloader-text {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    transition: opacity 0.5s ease-in-out; /* For text fade */
+}
+
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #a78bfa; /* Violet spinner */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-top: 20px; /* Space between image and spinner */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-fade {
+    0% { opacity: 0.5; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0.5; transform: scale(0.9); }
+}
+
+.animate-pulse-fade {
+    animation: pulse-fade 2s infinite ease-in-out;
+}
+
+/* AI Image specific animation */
+@keyframes ai-image-grow-fade {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.preloader-ai-image {
+    width: 150px; /* Adjust size as needed */
+    height: 150px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover;
+    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.5); /* Subtle glow */
+    opacity: 0; /* Initially hidden */
+    transform: scale(0.8); /* Initially smaller */
+    /* Animation applied by JS */
+}
+
+/* General Styles (from previous versions, kept consistent) */
+.navbar {
+    background-color: rgba(22, 33, 62, 0.8); /* Slightly transparent dark for navbar */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.btn-primary {
+    background-color: #6a0dad; /* Primary violet color */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+    background-color: #8a2be2; /* Lighter violet on hover */
+    transform: translateY(-2px);
+}
+.btn-secondary {
+    background-color: #3e206d; /* Darker violet for secondary buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-secondary:hover {
+    background-color: #5a309d; /* Lighter darker violet on hover */
+    transform: translateY(-2px);
+}
+.card {
+    background-color: #16213e; /* Dark background for cards */
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Added border-color to transition */
+    border: 1px solid transparent; /* Initial transparent border for smooth transition */
+}
+.card:hover {
+    transform: translateY(-5px); /* Lift card on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
+    border-color: #a78bfa; /* Violet border on hover */
+}
+.gradient-text {
+    background: linear-gradient(to right, #a78bfa, #8b5cf6); /* Violet gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.service-icon {
+    color: #a78bfa; /* Violet icon color */
+}
+.project-tag {
+    background-color: #3e206d;
+    color: #e0e0e0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+}
+.footer-social-icon {
+    background-color: #3e206d;
+    color: #e0e0e0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+.footer-social-icon:hover {
+    background-color: #5a309d;
+}
+input[type="text"],
+input[type="email"],
+textarea {
+    background-color: #0f0f1a; /* Even darker background for inputs */
+    border: 1px solid #3e206d; /* Violet border */
+    color: #e0e0e0; /* Light text color for input */
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    width: 100%;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    outline: none; /* Remove default outline */
+    border-color: #a78bfa; /* Lighter violet on focus */
+    box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.5); /* Subtle glowing effect on focus */
+}
+
+/* Modal styles (kept for reference, though sections are now inline) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    background-color: #16213e;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh; /* Added to make content scrollable if it overflows */
+    overflow-y: auto; /* Added for vertical scrolling */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+.close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+/* Entrance Animations (reused for About Me modal) */
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up-1 { animation: slide-up 0.6s ease-out forwards; animation-delay: 0.2s; }
+.animate-slide-up-2 { animation: slide-up 0.6s ease-out forwards; animation-delay: 0.4s; }
+.animate-slide-up-3 { animation: slide-up 0.6s ease-out forwards; animation-delay: 0.6s; }
+.animate-slide-up-4 { animation: slide-up 0.6s ease-out forwards; animation-delay: 0.8s; }
+.animate-slide-up-5 { animation: slide-up 0.6s ease-out forwards; animation-delay: 1.0s; }
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+.animate-fade-in-delay { animation: fade-in 0.8s ease-out forwards; animation-delay: 1.2s; }
+
+
+/* New scroll-triggered animation for sections */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.fade-in-up-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Individual fade-in-up for service cards */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    opacity: 0; /* Hidden by default */
+    animation: fade-in-up 0.6s ease-out forwards;
+    /* Apply animation-delay inline in HTML for staggered effect */
+}
+
+/* Animations for Contact section elements */
+@keyframes fade-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-fade-in-left {
+    opacity: 0;
+    animation: fade-in-left 0.8s ease-out forwards;
+}
+
+.animate-fade-in-right {
+    opacity: 0;
+    animation: fade-in-right 0.8s ease-out forwards;
+}
